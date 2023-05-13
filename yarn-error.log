@@ -14,7 +14,7 @@ Platform:
   darwin arm64
 
 Trace: 
-  SyntaxError: Invalid value type 581:0 in /Users/binitmishra/Downloads/materio-mui-react-nextjs-admin-template-free/javascript-version/yarn.lock
+  SyntaxError: Invalid value type 581:0 in /Users/binitmishra/Desktop/Personal/GitHub/maid-frontend/yarn.lock
       at Parser.unexpected (/usr/local/lib/node_modules/yarn/lib/cli.js:63491:11)
       at Parser.parse (/usr/local/lib/node_modules/yarn/lib/cli.js:63619:16)
       at Parser.parse (/usr/local/lib/node_modules/yarn/lib/cli.js:63596:26)
