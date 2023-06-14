@@ -92,7 +92,6 @@ const Profile = () => {
                     </InputAdornment>
                   )
                 }}
-                // onChange={(e) => setUserEmail(e.target.value)}
               />
             </Grid>
             <Grid item xs={12}>
