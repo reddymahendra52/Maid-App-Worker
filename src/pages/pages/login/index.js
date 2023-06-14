@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react'
 
 // ** Next Imports
 import Link from 'next/link'
@@ -7,7 +7,6 @@ import { useRouter } from 'next/router'
 // ** MUI Components
 import Box from '@mui/material/Box'
 import Button from '@mui/material/Button'
-import Divider from '@mui/material/Divider'
 import Checkbox from '@mui/material/Checkbox'
 import TextField from '@mui/material/TextField'
 import InputLabel from '@mui/material/InputLabel'
@@ -22,10 +21,6 @@ import InputAdornment from '@mui/material/InputAdornment'
 import MuiFormControlLabel from '@mui/material/FormControlLabel'
 
 // ** Icons Imports
-import Google from 'mdi-material-ui/Google'
-import Github from 'mdi-material-ui/Github'
-import Twitter from 'mdi-material-ui/Twitter'
-import Facebook from 'mdi-material-ui/Facebook'
 import EyeOutline from 'mdi-material-ui/EyeOutline'
 import EyeOffOutline from 'mdi-material-ui/EyeOffOutline'
 
@@ -63,15 +58,14 @@ const LoginPage = () => {
     showPassword: false
   })
 
-  const [mobileNumber, setMobileNumber] = useState("");
-  const [users, setUsers] = useState();
+  const [mobileNumber, setMobileNumber] = useState('')
+  const [users, setUsers] = useState()
 
   // ** Hook
   const theme = useTheme()
   const router = useRouter()
 
   const handleChange = prop => event => {
-    
     setValues({ ...values, [prop]: event.target.value })
   }
 
@@ -83,51 +77,51 @@ const LoginPage = () => {
     event.preventDefault()
   }
 
-  const handleSubmit = async (event) => {
-    event.preventDefault();
+  const handleSubmit = async event => {
+    event.preventDefault()
 
-    var phone = mobileNumber;
-    var passwd = values.password;
+    var phone = mobileNumber
+    var passwd = values.password
 
-    console.log(" Phone Number : " + phone);
-    console.log(" Password : " + passwd);
+    console.log(' Phone Number : ' + phone)
+    console.log(' Password : ' + passwd)
 
-    if(phone === null || phone === '') {
-      console.log('Enter your mobile number.');
-      alert("Enter your mobile number.");
+    if (phone === null || phone === '') {
+      console.log('Enter your mobile number.')
+      alert('Enter your mobile number.')
     } else if (passwd === null || passwd === '') {
-      alert("Enter your password.");
+      alert('Enter your password.')
     } else {
-      var payload = JSON.stringify({ 
-        "phone": mobileNumber,
-        "password": values.password,
-      });
-      console.log(payload);
-  
-      const response = await fetch('http://13.127.200.135:8080/api/login/customers', {
+      var payload = JSON.stringify({
+        phone: mobileNumber,
+        password: values.password
+      })
+      console.log(payload)
+
+      const response = await fetch('https://maid-app-test.onrender.com/api/login/worker', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body:payload
-      }).then(response => response.json())
-      .then(response => {
-      
-          console.log(response);
-          console.log(response['message']);
-          if(response['message'] === 'No data found') {
-            alert("Invalid Credentials");
-          } else if(response['message'] === 'Invalid Password!') {
-            alert("Invalid Password!");
+        body: payload
+      })
+        .then(response => response.json())
+        .then(response => {
+          console.log(response)
+          console.log(response['message'])
+          if (response['message'] === 'No data found') {
+            alert('Invalid Credentials')
+          } else if (response['message'] === 'Invalid Password!') {
+            alert('Invalid Password!')
           } else {
-            localStorage.setItem('Name', response['name']);
-            localStorage.setItem('Email', response['email']);
-            localStorage.setItem('Phone', response['phone']);
-            localStorage.setItem('Cuuid', response['customer_id']);
-            localStorage.setItem('Cid', response['id']);
-            window.location.href = '/';
+            localStorage.setItem('Name', response['name'])
+            localStorage.setItem('Email', response['email'])
+            localStorage.setItem('Phone', response['phone'])
+            localStorage.setItem('Cuuid', response['worker_id'])
+            localStorage.setItem('Cid', response['id'])
+            window.location.href = '/'
           }
-      });
+        })
     }
-  };
+  }
 
   return (
     <Box className='content-center'>
@@ -203,7 +197,7 @@ const LoginPage = () => {
                 fontSize: '1.5rem !important'
               }}
             >
-              {themeConfig.templateName}
+              Worker Login
             </Typography>
           </Box>
           <Box sx={{ mb: 6 }}>
@@ -213,7 +207,14 @@ const LoginPage = () => {
             <Typography variant='body2'>Please sign-in to your account and start the adventure</Typography>
           </Box>
           <form noValidate autoComplete='off' onSubmit={handleSubmit}>
-            <TextField autoFocus fullWidth id='phone' label='Mobile No.' sx={{ marginBottom: 4 }} onChange={(e) => setMobileNumber(e.target.value)} />
+            <TextField
+              autoFocus
+              fullWidth
+              id='phone'
+              label='Mobile No.'
+              sx={{ marginBottom: 4 }}
+              onChange={e => setMobileNumber(e.target.value)}
+            />
             <FormControl fullWidth>
               <InputLabel htmlFor='auth-login-password'>Password</InputLabel>
               <OutlinedInput
@@ -244,13 +245,7 @@ const LoginPage = () => {
                 <LinkStyled onClick={e => e.preventDefault()}>Forgot Password?</LinkStyled>
               </Link>
             </Box>
-            <Button
-              fullWidth
-              size='large'
-              variant='contained'
-              sx={{ marginBottom: 7 }}
-              type='submit'
-            >
+            <Button fullWidth size='large' variant='contained' sx={{ marginBottom: 7 }} type='submit'>
               Login
             </Button>
             <Box sx={{ display: 'flex', alignItems: 'center', flexWrap: 'wrap', justifyContent: 'center' }}>
@@ -263,31 +258,6 @@ const LoginPage = () => {
                 </Link>
               </Typography>
             </Box>
-            {/* <Divider sx={{ my: 5 }}>or</Divider>
-            <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-              <Link href='/' passHref>
-                <IconButton component='a' onClick={e => e.preventDefault()}>
-                  <Facebook sx={{ color: '#497ce2' }} />
-                </IconButton>
-              </Link>
-              <Link href='/' passHref>
-                <IconButton component='a' onClick={e => e.preventDefault()}>
-                  <Twitter sx={{ color: '#1da1f2' }} />
-                </IconButton>
-              </Link>
-              <Link href='/' passHref>
-                <IconButton component='a' onClick={e => e.preventDefault()}>
-                  <Github
-                    sx={{ color: theme => (theme.palette.mode === 'light' ? '#272727' : theme.palette.grey[300]) }}
-                  />
-                </IconButton>
-              </Link>
-              <Link href='/' passHref>
-                <IconButton component='a' onClick={e => e.preventDefault()}>
-                  <Google sx={{ color: '#db4437' }} />
-                </IconButton>
-              </Link>
-            </Box> */}
           </form>
         </CardContent>
       </Card>

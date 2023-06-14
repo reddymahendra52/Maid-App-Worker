@@ -1,0 +1,82 @@
+.deliveryOrderCard {
+  background-color: rgb(247 229 229 / 12%);
+  margin: 5px;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  border: 1px solid rgba(73, 73, 73, 0.4);
+  border-radius: 12px;
+  padding: 1.3em;
+  font-family: 'Lato', sans-serif;
+}
+
+.orderPrimaryInfo {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  padding-bottom: 1em;
+  margin-bottom: 1em;
+  border-bottom: 1px solid rgba(73, 73, 73, 0.12);
+  font-size: 17px;
+}
+
+.orderInfo {
+  display: flex;
+  flex-direction: column;
+}
+
+.orderInfoRow {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  margin-top: 0.5em;
+}
+
+.orderFooter {
+  margin-top: 1em;
+  padding-top: 1em;
+  border-top: 1px solid rgba(73, 73, 73, 0.12);
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  flex-wrap: wrap;
+}
+
+.cardOrderBtn {
+  font-size: 14px;
+  font-weight: 700;
+  text-decoration: none;
+  position: relative;
+  padding: 0.8em;
+  border-radius: 12px;
+  color: #fff;
+  border: 1px solid;
+  cursor: pointer;
+  box-shadow: 10px -2px 66px 4px rgba(0, 0, 0, 0.24);
+}
+
+.cardOrderBtn:hover {
+  top: -1px;
+}
+
+.cardOrderBtnDetails {
+  background-color: #172b4d;
+  border-color: #172b4d;
+}
+
+.cardOrderBtnNavigate {
+  background-color: #32a852;
+  border-color: #32a852;
+}
+
+.containerCardOrders {
+  justify-content: center;
+  width: 90%;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+  justify-content: center;
+  padding: 5px;
+  margin: auto;
+}

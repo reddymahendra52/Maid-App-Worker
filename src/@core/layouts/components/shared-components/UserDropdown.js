@@ -23,7 +23,7 @@ import AccountOutline from 'mdi-material-ui/AccountOutline'
 import MessageOutline from 'mdi-material-ui/MessageOutline'
 import HelpCircleOutline from 'mdi-material-ui/HelpCircleOutline'
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react'
 
 // ** Styled Components
 const BadgeContentSpan = styled('span')(({ theme }) => ({
@@ -37,6 +37,7 @@ const BadgeContentSpan = styled('span')(({ theme }) => ({
 const UserDropdown = () => {
   // ** States
   const [anchorEl, setAnchorEl] = useState(null)
+  const [userName, setUserName] = useState('')
 
   // ** Hooks
   const router = useRouter()
@@ -46,8 +47,6 @@ const UserDropdown = () => {
   }
 
   const handleDropdownClose = url => {
-    console.log('Logout clicked');
-    localStorage.clear(); //for localStorage
     if (url) {
       router.push(url)
     }
@@ -68,27 +67,18 @@ const UserDropdown = () => {
     }
   }
 
-  const cname = "";
-
   // Check if the user is authenticated on page load
   useEffect(() => {
-    const cuuid = localStorage.getItem('Cuuid');
-    cname = localStorage.getItem('Name');
-    console.log(cuuid);
-    if (cuuid == null || cuuid == '') {
-      try {
-        window.location.href = '/pages/login';
-      } catch (error) {
-        console.error('Invalid token');
-      }
-    }
-  }, []);
+    const cuuid = localStorage.getItem('Cuuid')
+    const cname = localStorage.getItem('Name')
+    setUserName(cname)
+  }, [])
 
   const logout = () => {
-    console.log('Logout clicked');
-    localStorage.clear(); //for localStorage
-    window.location.href = '/pages/login';
-  };
+    console.log('Logout clicked')
+    localStorage.clear() //for localStorage
+    window.location.href = '/pages/login'
+  }
 
   return (
     <Fragment>
@@ -124,53 +114,29 @@ const UserDropdown = () => {
               <Avatar alt='John Doe' src='/images/avatars/1.png' sx={{ width: '2.5rem', height: '2.5rem' }} />
             </Badge>
             <Box sx={{ display: 'flex', marginLeft: 3, alignItems: 'flex-start', flexDirection: 'column' }}>
-              <Typography sx={{ fontWeight: 600 }}>John Doe</Typography>
+              <Typography sx={{ fontWeight: 600 }}>{userName}</Typography>
               <Typography variant='body2' sx={{ fontSize: '0.8rem', color: 'text.disabled' }}>
-                Admin
+                Worker
               </Typography>
             </Box>
           </Box>
         </Box>
         <Divider sx={{ mt: 0, mb: 1 }} />
-        <MenuItem sx={{ p: 0 }} onClick={() => handleDropdownClose()}>
+        <MenuItem sx={{ p: 0 }} onClick={() => handleDropdownClose('/pages/profile')}>
           <Box sx={styles}>
             <AccountOutline sx={{ marginRight: 2 }} />
             Profile
           </Box>
         </MenuItem>
-        <MenuItem sx={{ p: 0 }} onClick={() => handleDropdownClose()}>
-          <Box sx={styles}>
-            <EmailOutline sx={{ marginRight: 2 }} />
-            Inbox
-          </Box>
-        </MenuItem>
-        <MenuItem sx={{ p: 0 }} onClick={() => handleDropdownClose()}>
-          <Box sx={styles}>
-            <MessageOutline sx={{ marginRight: 2 }} />
-            Chat
-          </Box>
-        </MenuItem>
         <Divider />
-        <MenuItem sx={{ p: 0 }} onClick={() => handleDropdownClose()}>
-          <Box sx={styles}>
-            <CogOutline sx={{ marginRight: 2 }} />
-            Settings
-          </Box>
-        </MenuItem>
-        <MenuItem sx={{ p: 0 }} onClick={() => handleDropdownClose()}>
-          <Box sx={styles}>
-            <CurrencyUsd sx={{ marginRight: 2 }} />
-            Pricing
-          </Box>
-        </MenuItem>
-        <MenuItem sx={{ p: 0 }} onClick={() => handleDropdownClose()}>
+        <MenuItem sx={{ p: 0 }} onClick={() => handleDropdownClose('/pages/faq')}>
           <Box sx={styles}>
             <HelpCircleOutline sx={{ marginRight: 2 }} />
             FAQ
           </Box>
         </MenuItem>
         <Divider />
-        <MenuItem sx={{ py: 2 }} onClick={() => handleDropdownClose('/pages/login')}>
+        <MenuItem sx={{ py: 2 }} onClick={logout}>
           <LogoutVariant sx={{ marginRight: 2, fontSize: '1.375rem', color: 'text.secondary' }} />
           Logout
         </MenuItem>

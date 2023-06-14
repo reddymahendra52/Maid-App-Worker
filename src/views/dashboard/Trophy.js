@@ -26,35 +26,29 @@ const Trophy = () => {
   // ** Hook
   const theme = useTheme()
   const imageSrc = theme.palette.mode === 'light' ? 'triangle-light.png' : 'triangle-dark.png'
+  const cuuid = "";
   const cname = "";
+
+  const [userName, setUserName] = useState("");
+  const [userUUID, setUserUUID] = useState("");
 
   // Check if the user is authenticated on page load
   useEffect(() => {
-    const cuuid = localStorage.getItem('Cuuid');
+    cuuid = localStorage.getItem('Cuuid');
     cname = localStorage.getItem('Name');
-    console.log(cuuid);
-    if (cuuid == null || cuuid == '') {
-      try {
-        window.location.href = '/pages/login';
-      } catch (error) {
-        console.error('Invalid token');
-      }
-    }
+    console.log("Cuuid : " + cuuid);
+    console.log("Name : " + cname);
+    setUserName(cname);
+    setUserUUID(cuuid);
   }, []);
 
   return (
     <Card sx={{ position: 'relative' }}>
       <CardContent>
-        <Typography variant='h6'>Hello, {cname} 🥳</Typography>
+        <Typography variant='h6'>Hello {userName}, 🥳</Typography>
         <Typography variant='body2' sx={{ letterSpacing: '0.25px' }}>
           Welcome to your dashboard
         </Typography>
-        <Typography variant='h5' sx={{ my: 4, color: 'primary.main' }}>
-          {/* $10k */}
-        </Typography>
-        <Button size='small' variant='contained'>
-          View Profile
-        </Button>
         <TriangleImg alt='triangle background' src={`/images/misc/${imageSrc}`} />
         <TrophyImg alt='trophy' src='/images/misc/trophy.png' />
       </CardContent>

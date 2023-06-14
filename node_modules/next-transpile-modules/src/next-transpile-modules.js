@@ -84,6 +84,11 @@ const createWebpackMatcher = (modulesToTranspile, logger = createLogger(false)) 
  * @param {{resolveSymlinks?: boolean, debug?: boolean, __unstable_matcher?: (path: string) => boolean}} options
  */
 const withTmInitializer = (modules = [], options = {}) => {
+  /**
+   * @template T
+   * @param { T } nextConfig
+   * @returns { T | undefined }
+   */
   const withTM = (nextConfig = {}) => {
     if (modules.length === 0) return nextConfig;
 

@@ -20,12 +20,10 @@ import { styled, useTheme } from '@mui/material/styles'
 import MuiCard from '@mui/material/Card'
 import InputAdornment from '@mui/material/InputAdornment'
 import MuiFormControlLabel from '@mui/material/FormControlLabel'
+import Select from '@mui/material/Select'
+import MenuItem from '@mui/material/MenuItem'
 
 // ** Icons Imports
-import Google from 'mdi-material-ui/Google'
-import Github from 'mdi-material-ui/Github'
-import Twitter from 'mdi-material-ui/Twitter'
-import Facebook from 'mdi-material-ui/Facebook'
 import EyeOutline from 'mdi-material-ui/EyeOutline'
 import EyeOffOutline from 'mdi-material-ui/EyeOffOutline'
 
@@ -80,53 +78,57 @@ const RegisterPage = () => {
     event.preventDefault()
   }
 
-  const [userName, setUserName] = useState("");
-  const [userPhone, setUserPhone] = useState("");
-  const [userEmail, setUserEmail] = useState("");
+  const [userName, setUserName] = useState('')
+  const [userPhone, setUserPhone] = useState('')
+  const [userEmail, setUserEmail] = useState('')
+  const [workerType, setWorkerType] = useState('')
 
-  const handleSubmit = async (event) => {
-    event.preventDefault();
+  const handleSubmit = async event => {
+    event.preventDefault()
 
-    var name = userName;
-    var email = userEmail;
-    var phone = userPhone;
-    var passwd = values.password;
+    var name = userName
+    var email = userEmail
+    var phone = userPhone
+    var type = workerType
+    var passwd = values.password
 
-    if(name === null || name === '') {
-      alert("Enter your full name");
-    } else if(email === null || email === '') {
-      alert("Enter your email id.");
-    } else if(phone === null || phone === '') {
-      alert("Enter your mobile number.");
+    if (name === null || name === '') {
+      alert('Enter your full name')
+    } else if (email === null || email === '') {
+      alert('Enter your email id.')
+    } else if (phone === null || phone === '') {
+      alert('Enter your mobile number.')
     } else if (passwd === null || passwd === '') {
-      alert("Enter your password.");
+      alert('Enter your password.')
     } else {
-      var payload = JSON.stringify({ 
-        "name": userName,
-        "email": userEmail,
-        "phone": userPhone,
-        "password": values.password,
-      });
-      console.log(payload);
-  
-      const response = await fetch('http://13.127.200.135:8080/api/create/customers', {
+      var payload = JSON.stringify({
+        name: userName,
+        email: userEmail,
+        phone: userPhone,
+        type: workerType,
+        password: values.password
+      })
+      console.log(payload)
+
+      const response = await fetch('https://maid-app-test.onrender.com/api/create/worker', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body:payload
-      }).then(response => response.json())
-      .then(response => {
-          console.log(response);
-          console.log(response['message']);
-          if(response['message'] === 'This phone no. is already registered') {
-            alert("This phone no. is already registered.");
-          } else if(response['message'] === 'This email ID is already registered') {
-            alert("This email ID is already registered!");
+        body: payload
+      })
+        .then(response => response.json())
+        .then(response => {
+          console.log(response)
+          console.log(response['message'])
+          if (response['message'] === 'This phone no. is already registered') {
+            alert('This phone no. is already registered.')
+          } else if (response['message'] === 'This email ID is already registered') {
+            alert('This email ID is already registered!')
           } else {
-            window.location.href = '/';
+            window.location.href = '/'
           }
-      });
+        })
     }
-  };
+  }
 
   return (
     <Box className='content-center'>
@@ -202,19 +204,48 @@ const RegisterPage = () => {
                 fontSize: '1.5rem !important'
               }}
             >
-              {themeConfig.templateName}
+              Worker Register
             </Typography>
           </Box>
           <Box sx={{ mb: 6 }}>
             <Typography variant='h5' sx={{ fontWeight: 600, marginBottom: 1.5 }}>
               Adventure starts here 🚀
             </Typography>
-            <Typography variant='body2'>Make your app management easy and fun!</Typography>
+            <Typography variant='body2'>Make your app easy and fun!</Typography>
           </Box>
           <form noValidate autoComplete='off' onSubmit={handleSubmit}>
-            <TextField autoFocus fullWidth id='username' label='Username' sx={{ marginBottom: 4 }} onChange={(e) => setUserName(e.target.value)} />
-            <TextField fullWidth type='email' label='Email' sx={{ marginBottom: 4 }} onChange={(e) => setUserEmail(e.target.value)} />
-            <TextField fullWidth type='number' label='Phone' sx={{ marginBottom: 4 }} onChange={(e) => setUserPhone(e.target.value)} />
+            <TextField
+              autoFocus
+              fullWidth
+              id='username'
+              label='Username'
+              sx={{ marginBottom: 4 }}
+              onChange={e => setUserName(e.target.value)}
+            />
+            <TextField
+              fullWidth
+              type='email'
+              label='Email'
+              sx={{ marginBottom: 4 }}
+              onChange={e => setUserEmail(e.target.value)}
+            />
+            <TextField
+              fullWidth
+              type='number'
+              label='Phone'
+              sx={{ marginBottom: 4 }}
+              onChange={e => setUserPhone(e.target.value)}
+            />
+            <FormControl fullWidth sx={{ marginBottom: 4 }}>
+              <InputLabel>Type of Work:</InputLabel>
+              <Select label='Type of Work' defaultValue='- Select -' onChange={e => setWorkerType(e.target.value)}>
+                <MenuItem value='- Select -' selected disabled>
+                  - Select -
+                </MenuItem>
+                <MenuItem value='Cleaning'>Cleaning</MenuItem>
+                <MenuItem value='Washing'>Washing</MenuItem>
+              </Select>
+            </FormControl>
             <FormControl fullWidth>
               <InputLabel htmlFor='auth-register-password'>Password</InputLabel>
               <OutlinedInput
@@ -261,7 +292,6 @@ const RegisterPage = () => {
                 </Link>
               </Typography>
             </Box>
-            
           </form>
         </CardContent>
       </Card>
